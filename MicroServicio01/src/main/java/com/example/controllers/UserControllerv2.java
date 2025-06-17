@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.text.html.parser.Entity;
-/*prueba1 de commit*/
+/*prueba1 de commit 2 */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +22,7 @@ import com.example.models.requests.UserCreate;
 import com.example.models.requests.UserUpdate;
 import com.example.services.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 
@@ -36,7 +37,10 @@ public class UserControllerv2 {
     @Autowired
     private UserService userService;
 
+
     @GetMapping("/")
+    @Operation(summary = "Obtener todos los usuarios",
+    description = "Obtiene una lista de todos los usuarios registrados en el sistema")
     public List<User> obtenerTodos() {
         List<EntityModel<User>> usuarios = userService.obtenerTodos()
             .stream()
@@ -59,7 +63,8 @@ public class UserControllerv2 {
     public User modificar(@Valid @RequestBody UserUpdate body){
         return userService.actualizar(body);
     }
-
+    @Operation(summary = "Actualizar un usuario",
+    description = "Actualiza un usuario existente en el sistema")
       @PutMapping()
     public User actualizar(@Valid @RequestBody UserUpdate body) {
         return userService.actualizar(body);
